@@ -82,11 +82,13 @@ class Timer(object):
 
     @property
     def expired(self):
-        return Duration(max(0, self.elapsed-self.expiration) if self.expiration is not None else 0)
+        assert self.expiration is not None, "Expiration is not set, Timer cannot be expired"
+        return Duration(max(0, self.elapsed - self.expiration))
 
     @property
     def remain(self):
-        return Duration(max(0, self.expiration-self.elapsed)) if self.expiration is not None else None
+        assert self.expiration is not None, "Expiration is not set, cannot return remaining time"
+        return Duration(max(0, self.expiration - self.elapsed))
 
     @property
     def start_time(self):
